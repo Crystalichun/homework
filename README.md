@@ -1,4 +1,4 @@
-##Cruise
+##Description
 This is a project for GC Dev training.
                                                            
 ###Getting Started
