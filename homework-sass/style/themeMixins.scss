@@ -1,0 +1,76 @@
+@use "sass:color";
+
+@mixin center {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+@mixin flex-center {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+@mixin themeStyle($theme-name, $content-bg-color, $search-color, $search-text-color, $img-size) {
+  [data-theme=#{$theme-name}] {
+    .content {
+      @include center;
+      height: 100%;
+      text-align: center;
+      background: $content-bg-color;
+
+      .select-theme {
+        position: absolute;
+        left: 20px;
+        top: 30px;
+        width: 100px;
+        height: 30px;
+        border-radius: 5px;
+        color: color.scale($content-bg-color, $lightness: -30%);;
+      }
+
+      .logo {
+        margin: 5%;
+      }
+
+      .input-wrapper {
+        .search-input {
+          width: 40%;
+          height: 40px;
+          border-radius: 100px;
+          outline: none;
+          border: 1px solid darkblue;
+          padding: 0 10px;
+        }
+
+        .search-button {
+          width: 100px;
+          height: 40px;
+          color: $search-text-color;
+          border-radius: 10px;
+          border: 1px solid #000000;
+          background: $search-color;
+
+          &:hover {
+            background: color.scale($search-color, $lightness: -30%);
+          }
+        }
+      }
+
+      .container {
+        @include flex-center;
+
+        img {
+          width: $img-size;
+          height: $img-size;
+          margin: 20px;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}

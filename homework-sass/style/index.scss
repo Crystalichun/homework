@@ -1,0 +1,16 @@
+@use "themeMixins";
+
+html, body {
+  height: 100%;
+}
+
+$themeStyles:
+ 'pink' pink gray white 50px,
+ 'orange' orange green white 60px,
+ 'yellow' yellow orange purple 80px;
+
+@each $themeName, $themeBgColor, $search-color, $search-text-color, $img-size in $themeStyles {
+  @include themeMixins.themeStyle($themeName, $themeBgColor, $search-color, $search-text-color, $img-size);
+}
+
+
