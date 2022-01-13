@@ -1,25 +1,32 @@
-const SUCCESSCODE = 4;
-const METHOD = {
-  GET: 'GET',
-  POST: 'POST',
-};
+enum MyRequestMethod {
+  Get = 'GET',
+  Post = 'POST'
+}
 
-export class Request {
-  constructor(method, url) {
-    this.method = method;
+interface ExtraHeader {
+  [key: string]: string
+}
+
+export class MyRequest {
+  private static SUCCESS_CODE = 4;
+
+  private readonly requestMethod: string;
+
+  private readonly url: string;
+
+  private addedHeaders: Map<string, string>;
+
+  constructor(requestMethod: string, url: string) {
+    this.requestMethod = requestMethod;
     this.url = url;
     this.addedHeaders = new Map();
   }
 
-  addHeader(name, value) {
-    this.addedHeaders.set(name, value);
-  }
-
-  _createXhr() {
+  private static _createXhr() {
     return window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
   }
 
-  _resolveData(type, text) {
+  private static _resolveData(type: string, text: string) {
     let result = text;
     if (/application\/json/.test(type)) {
       result = JSON.stringify(result);
@@ -27,35 +34,39 @@ export class Request {
     return result;
   }
 
-  _setRequestHeaders(xhr) {
+  private _setRequestHeaders(xhr: XMLHttpRequest): void {
     for (const [headerName, headerValue] of this.addedHeaders) {
       xhr.setRequestHeader(headerName, headerValue);
     }
   }
 
-  send(data) {
-    return new Promise((resolve, reject) => {
-      const xhr = this._createXhr();
+  public addHeaders(headers: ExtraHeader): void {
+    this.addedHeaders = new Map(Object.entries(headers));
+  }
 
-      if (this.method.toUpperCase() === 'GET') {
-        xhr.open(METHOD.GET, this.url);
+  public fetchData(data?: Object) {
+    return new Promise((resolve, reject) => {
+      const xhr = MyRequest._createXhr();
+
+      if (this.requestMethod.toUpperCase() === 'GET') {
+        xhr.open(MyRequestMethod.Get, this.url);
         this._setRequestHeaders(xhr);
         xhr.send();
       } else {
-        xhr.open(METHOD.POST, this.url);
+        xhr.open(MyRequestMethod.Post, this.url);
         this._setRequestHeaders(xhr);
         xhr.send(JSON.stringify(data));
       }
 
       xhr.onreadystatechange = () => {
-        if (xhr.readyState !== SUCCESSCODE) {
+        if (xhr.readyState !== MyRequest.SUCCESS_CODE) {
           return;
         }
 
         if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
           const type = xhr.getResponseHeader('content-type') || this.addedHeaders.get('Content-Type') || '';
-          const data = this._resolveData(type, xhr.responseText);
-          resolve(data);
+          const resolvedData = MyRequest._resolveData(type, xhr.responseText);
+          resolve(resolvedData);
         } else {
           reject(new Error(xhr.responseText));
         }

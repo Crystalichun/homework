@@ -1,22 +1,26 @@
 {
     "compilerOptions": {
-      "baseUrl": "./",
-      "sourceMap": true,
-      "module": "commonjs",
-      "target": "ES5",
-      "esModuleInterop": true,
-      "resolveJsonModule": true,
-      "lib": [
-        "esnext",
-        "dom"
-      ]
+        "baseUrl": "./",
+        "sourceMap": true,
+        "module": "commonjs",
+        "target": "ES5",
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "downlevelIteration": true,
+        "lib": [
+            "esnext",
+            "dom",
+            "scripthost"
+        ],
+        "outDir": "lib",
+        "declaration": true
     },
     "include": [
-      "./src", "./visual.d.ts"
+        "./src"
     ],
     "exclude": [
-      "node_modules",
-      "assets",
-      "dist"
+        "node_modules",
+        "assets",
+        "dist"
     ]
-  }
+}

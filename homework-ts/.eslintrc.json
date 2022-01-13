@@ -1,17 +1,15 @@
 {
     "extends": "airbnb",
-    "parser": "@typescript-eslint/parser",
+    "parser": "babel-eslint",
     "parserOptions": {
         "ecmaVersion": 13,
         "sourceType": "module"
     },
-    "plugins": [
-        "@typescript-eslint"
-    ],
     "env": {
         "browser": true,
         "node": true,
-        "mocha": true
+        "mocha": true,
+        "es6": true
     },
     "rules": {
         "no-underscore-dangle": "off",
@@ -34,6 +32,8 @@
         "no-unsafe-optional-chaining": "off",
         "no-useless-backreference": "off",
         "prefer-exponentiation-operator": "off",
-        "prefer-regex-literals": "off"
+        "prefer-regex-literals": "off",
+        "no-shadow": "off",
+        "no-unused-vars": "off"
     }
 }
