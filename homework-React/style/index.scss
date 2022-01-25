@@ -1,0 +1,118 @@
+@import "mixins";
+@import "variable";
+@import '~@mdi/font/css/materialdesignicons.css';
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+
+div#root {
+  height: 100%;
+  background: $bgColor;
+}
+
+.App {
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+
+  .title {
+    text-align: center;
+    font-size: 22px;
+    color: $title-fontColor;
+    padding: 20px;
+  }
+
+  .todo {
+    padding: 18px;
+
+    .todo-nav {
+      margin: 0 20%;
+    }
+
+    .todo-container {
+      @include flex-column-center;
+
+      .todo-list-header {
+        display: flex;
+        justify-content: space-between;
+        @include content-width;
+
+        .todo-filter-button {
+          width: 80px;
+        }
+      }
+
+      .todo-list {
+        padding: 0;
+        position: relative;
+        height: 60vh;
+        max-height: 60vh;
+        overflow-y: auto;
+        @include content-width;
+
+        li {
+          font-size: 24px;
+
+          .todo-item {
+            @include flex-row-center;
+            justify-content: space-between;
+            height: 45px;
+            line-height: 45px;
+
+            .todo-content {
+              border-bottom: 1px solid $borderColor;
+              flex: 1;
+              margin-right: 10px;
+
+              .toggle {
+                margin-right: 10px;
+                width: 18px;
+                height: 18px;
+              }
+
+              .todo-text {
+
+                &.todo-status-new{
+                  color: $status-new-fontColor;
+                }
+
+                &.todo-status-done{
+                  color: $status-done-fontColor;
+                  text-decoration: line-through;
+                }
+
+                &.todo-status-expired{
+                  color: $status-expired-fontColor;
+                }
+              }
+            }
+
+            .todo-operator {
+              width: 80px;
+
+              .todo-edit {
+                margin-right: 10px;
+                color: #0d6efd;
+                font-size: 28px;
+              }
+              .todo-delete {
+                color: #e23232;
+                font-size: 28px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .todo-add {
+      @include content-width;
+    }
+  }
+}
+
+@import "~bootstrap/scss/bootstrap";
+

@@ -1,0 +1,18 @@
+@mixin content-width {
+  width: 60%;
+  margin: 15px;
+}
+
+@mixin flex-row-center {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+
+@mixin flex-column-center {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+

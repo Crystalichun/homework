@@ -38,6 +38,10 @@
         "prefer-regex-literals": "off",
         "no-shadow": "off",
         "no-unused-vars": "off",
-        "react/jsx-filename-extension": "off"
+        "react/jsx-filename-extension": "off",
+        "default-case": "off",
+        "react/prop-types": "off",
+        "max-len": "off",
+        "require-yield": "off"
     }
 }
